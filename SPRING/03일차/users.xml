@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sample.mapper.UserMapper">
+
+<insert id="insertUser" parameterType="com.sample.vo.User">
+	INSERT INTO SAMPLE_USERS
+	(USER_ID, USER_NAME, USER_PASSWORD, USER_EMAIL, USER_PHONE, USER_STATUS, USER_CREATED_DATE, USER_POINT)
+	values
+	(#{id},#{name},#{password},#{email},#{phoneNumber}, #{status}, #{createdDate}, #{point})
+</insert>
+
+<update id="updateUser" parameterType="com.sample.vo.User">
+     UPDATE SAMPE_USERS
+      SET
+         USER_ID = #{id},
+         USER_NAME = #{name},
+         USER_PASSWORD = #{password},
+         USER_EMAIL = #{email},
+         USER_PHONE = #{phoneNumber},
+         USER_STATUS = #{status},
+         USER_CREATED_DATE = #{createdDate},
+         USER_POINT = #{point}
+      where
+         USER_ID = #{id}         
+   </update>
+
+	<select id="getUserById" parameterType="String" resultType="com.sample.vo.User">
+   	SELECT
+         USER_ID = id,
+         USER_NAME = name,
+         USER_PASSWORD = password,
+         USER_EMAIL = email,
+         USER_PHONE = phoneNumber,
+         USER_STATUS = status,
+         USER_CREATED_DATE = createdDate,
+         USER_POINT = point
+     FROM
+         SAMPE_USERS
+    WHERE
+    	USER_ID = #{value}
+   </select>
+   
+   <select id="getUserByEmail" parameterType="String" resultType="com.sample.vo.User">
+      SELECT
+         USER_ID = id,
+         USER_NAME = name,
+         USER_PASSWORD = password,
+         USER_EMAIL = email,
+         USER_PHONE = phoneNumber,
+         USER_STATUS = status,
+         USER_CREATED_DATE = createdDate,
+         USER_POINT = point
+     FROM
+         SAMPE_USERS
+      WHERE
+         USER_EMAIL = #{value}
+   </select>
+
+<select id="getUserByPhone" parameterType="String" resultType="com.sample.vo.User">
+     SELECT
+         USER_ID = id,
+         USER_NAME = name,
+         USER_PASSWORD = password,
+         USER_EMAIL = email,
+         USER_PHONE = phoneNumber,
+         USER_STATUS = status,
+         USER_CREATED_DATE = createdDate,
+         USER_POINT = point
+     FROM
+         SAMPE_USERS
+      WHERE
+         USER_PHONE = #{value}
+   </select>
+
+</mapper>
+
+

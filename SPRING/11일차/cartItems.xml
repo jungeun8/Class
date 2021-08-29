@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- 
+	com.sample.dao.ProductDao 매퍼인터페이스에 대한 매퍼파일(SQL이 정의된 파일) 정의
+ -->
+<mapper namespace="com.sample.dao.CartItemDao">
+
+	<select id="getCartItem" resultType="com.sample.vo.CartItem">
+		select
+			item_no				no,
+			user_id				userId,
+			product_no			productNo,
+			item_amount			amount,
+			item_created_date	createdDate
+		from
+			sample_cart_items
+		where
+			user_id = #{userId}
+			and product_no = #{productNo}
+	
+	</select>
+
+	<select id="getMyCartItemsByUserId" parameterType="string" resultType="hashmap">
+	select 
+	    A.item_no                                   as itemNo,
+	    A.item_amount                               as amount,
+	    B.product_no                                as productNo,
+	    B.product_name                              as name,
+	    B.product_price                             as price,
+	    B.product_discount_price                    as discountPrice,
+		    A.item_amount * B.product_discount_price    as orderPrice
+		from
+		    sample_cart_items A, sample_products B
+		where
+		    A.product_no = B.product_no
+		    and A.user_id =  #{value}
+		order by
+		    B.product_name asc
+	
+	
+	</select>
+	
+	
+   
+</mapper>
